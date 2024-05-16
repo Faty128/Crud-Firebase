@@ -1,38 +1,153 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.titre{
+  display: block ;
+  margin-top: 60px;
+  margin-left: 23%;
+}
+.button-link{
+  text-decoration: none;
+  color: blue;
+  border-radius: 3px;
+  margin: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.tableau-style{
+  border-collapse: collapse;
+  min-width: 600px;
+  width: auto;
+  cursor: pointer;
+  margin: 100px auto;
+  border: 1px solid #ddd;
+  margin-top: 100px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+th, td {
+  padding:  10px 15px;
+}
+
+tbody tr, td, th {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.icons{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 10px;
+}
+.button-delete{
+  background: none;
+  border: none;
+}
+
+.showing{
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  gap: 32rem;
+  margin-top: -70px;
+}
+.showing h6{
+  font-size: 14px;
+}
+.showing p{
+  font-size: 13px;
+}
+.input{
+padding: auto;
+margin-top: 100px;
+}
+.form-control{
+  width: 50%;
+  margin: auto;
+}
+.btn{
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.btn-edit {
+  background-color: #008cba;
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background-color: #008cba;
+  border: none;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.user-details h1{
+  font-family: 'monospace';
+  margin-top: 100px;
+  font-size: 2rem;
+  font-weight: 600;
+  font-style: inherit;
+  color: dimgray;
+}
+.details{
+  display: block;
+  margin: auto;
+  width: 200px;
+  font-size: 17px;
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid lightblue;
+  border-radius: 5px;
+}
+.details span{
+font-weight: 500;
+color: dimgrey;
+}
+.update {
+  width: 100px;
+  height: 40px;
+  margin-top: 10px;
+  background-color: blue;
+  border: 1px solid blue;
+  color: #ddd;
+  border-radius: 3px;
+  }
+
+  .modifier {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: #008cba;
+    width: 300px;
+    margin-top: 30px;
+    display: block;
+    padding: 20px;
+    margin: auto;
+    color: #ddd;
+    box-shadow: 3px 5px 5px 1px gray;
+    }
+    .modifier input {
+      margin-left: 10px;
+      margin: 5px;
+    }
+    .showing .NUM, p{
+    display: flex;
+      margin: 5px;
+      gap: 10px;
+    }
+
+@media screen and (max-width: 768px) {
+  .fa{
+    position: relative;
+    left: -10%;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
