@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { EyeFill, PencilFill, TrashFill } from 'react-bootstrap-icons';
 import { Toast } from 'react-bootstrap';
-import firebase from 'firebase/compat/app';
-import { update } from 'firebase/database';
 
 const Crud = () => {
 
@@ -50,24 +48,28 @@ const handleUpdateUser = (id) => {
   navigate(`/UpdateUser/${id}`);
 };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  navigate(`/search?name=${search}`);
-  setSearch("");
-};
+const filteredUsers = users.filter((user) => {
+  return (
+    user.Name.toLowerCase().includes(search.toLowerCase()) ||
+    user.Adress.toLowerCase().includes(search.toLowerCase()) ||
+    user.City.toLowerCase().includes(search.toLowerCase()) ||
+    user.Pin.toLowerCase().includes(search.toLowerCase()) ||
+    user.Country.toLowerCase().includes(search.toLowerCase())
+
+  )
+})
   return (
     <div>
       <div className='glob'> 
       <div className='titre'>
         <h3>Customer Détails</h3>
           <button><Link to="/Addtable" className='button-link'>ajouter</Link></button>
-        <form onSubmit={handleSubmit} style={{ display: "inline", marginLeft: "45%" }}>
-          <input
-            type="text"
-            className="inputField"
-            placeholder="Search ..."
-            onChange={(e) => setSearch(e.target.value)}
-            value={search}
+        <form  style={{ display: "inline", marginLeft: "45%" }}>
+          <input 
+          type="text" 
+          placeholder='Search...'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           />
         </form>
       </div>       
@@ -85,7 +87,7 @@ const handleSubmit = (e) => {
           </thead>
 
           <tbody>
-              {users.map((user, index) => 
+              {filteredUsers.map((user, index) => 
                 <tr key={user.id}>
                     <td>{index + 1}</td>
                     <td>{user.Name}</td>

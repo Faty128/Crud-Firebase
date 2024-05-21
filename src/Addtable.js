@@ -43,9 +43,10 @@ const Addtable = (props) => {
   };
   return (
     <div className="NewTables">
+      <h1 className='p-2'>Ajouter des Etudiands</h1>
       <Container fluid>
         <Row>
-          <form onSubmit={handleSubmit}>
+          <form className="NewTables" onSubmit={handleSubmit}>
             <div className="input">
               <input
                 type="text"
