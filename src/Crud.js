@@ -1,21 +1,35 @@
-import { collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
-import { db } from './config/firebase';
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { db, imageDb } from './config/firebase';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { EyeFill, PencilFill, TrashFill } from 'react-bootstrap-icons';
 import { Toast } from 'react-bootstrap';
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
 
 const Crud = () => {
 
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const [imgUrl, setImgUrl] = useState([])
 
   const navigate=useNavigate();
 
   useEffect(() => {
     getData();
   }, []); 
+
+  useEffect(() => {
+    listAll(ref(imageDb,"files")).then(imgs=>{
+        console.log(imgs)
+        imgs.items.forEach(val=>{
+            getDownloadURL(val).then(url=>{
+                setImgUrl(data=>[...data,url])
+            })
+        })
+    })
+
+},[])
 
   const userCollection = collection(db, "user");
   
@@ -50,6 +64,7 @@ const handleUpdateUser = (id) => {
 
 const filteredUsers = users.filter((user) => {
   return (
+    // user.Image.toLowerCase().includes(search.toLowerCase()) ||
     user.Name.toLowerCase().includes(search.toLowerCase()) ||
     user.Adress.toLowerCase().includes(search.toLowerCase()) ||
     user.City.toLowerCase().includes(search.toLowerCase()) ||
@@ -76,7 +91,7 @@ const filteredUsers = users.filter((user) => {
         <table className='tableau-style'>
           <thead>
             <tr>
-              <th>#</th>
+              <th>Image</th>
               <th>Name</th>
               <th>Adress</th>
               <th>City</th>
@@ -89,12 +104,21 @@ const filteredUsers = users.filter((user) => {
           <tbody>
               {filteredUsers.map((user, index) => 
                 <tr key={user.id}>
+                    <td>{
+                    
+                      imgUrl.map(dataVal=><div className='m-2'>
+                          <img src={dataVal} height="50px" width="100%" alt='' />
+                          <br />
+                      </div>)
+                    
+                    }</td>
                     <td>{index + 1}</td>
                     <td>{user.Name}</td>
                     <td>{user.Adress}</td>
                     <td>{user.City}</td>
                     <td>{user.Pin}</td>
                     <td>{user.Country}</td>
+                    
                     <td className='icons'>
                       <Link to={`/voir/${user.id}`}>
                         <EyeFill size={18}color='skyblue' className='ms-2' />

@@ -1,11 +1,22 @@
 import { addDoc, collection, doc } from "firebase/firestore";
 import React, { useState } from "react";
 import { Container, Row } from "react-bootstrap";
-import { db } from "./config/firebase";
+import { db, imageDb } from "./config/firebase";
 import { Link, useNavigate } from "react-router-dom";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+// import {
+//   getDownloadURL,
+//   ref as storageRef,
+//   uploadBytes,
+// } from "firebase/storage";
+import { v4 } from "uuid";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const Addtable = (props) => {
+  const [img, setImg] = useState(null);
+  const [setImgUrl] = useState([]);
+  // const [imageUpload, setImageUpload] = useState(null);
+
   const navigate = useNavigate(); //permette de diriger d'une page a une autre page automatiquement
 
   const [newTable, setNewTable] = useState({
@@ -15,6 +26,18 @@ const Addtable = (props) => {
     Pin: "",
     Country: "",
   });
+
+  const handleClick = () => {
+    if (img !== null) {
+      const imgRef = ref(imageDb, `files/${v4()}`);
+      uploadBytes(imgRef, img).then((value) => {
+        console.log(value);
+        getDownloadURL(value.ref).then((url) => {
+          setImgUrl((data) => [...data, url]);
+        });
+      });
+    }
+  };
 
   const handleChange = (e) => {
     setNewTable({ ...newTable, [e.target.name]: e.target.value });
@@ -41,13 +64,24 @@ const Addtable = (props) => {
       alert("error");
     }
   };
+
   return (
     <div className="NewTables">
-      <h1 className='p-2'>Ajouter des Etudiands</h1>
+      <h1 className="p-2">Ajouter des Etudiands</h1>
       <Container fluid>
         <Row>
           <form className="NewTables" onSubmit={handleSubmit}>
             <div className="input">
+              <input type="file" onChange={(e) => setImg(e.target.files[0])} />
+              {/* <input
+                label="Image"
+                placeholder="Choose image"
+                accept="image/png,image/jpeg"
+                type="file"
+                onChange={(e) => {
+                  setImageUpload(e.target.files[0]);
+                }}
+              /> */}
               <input
                 type="text"
                 name="Name"
@@ -100,12 +134,16 @@ const Addtable = (props) => {
               <br />
             </div>
             <div className="btn">
-            <button className="btn btn-success" type="submit">
-              Ajouter
-            </button>
-            <Link to="/">
-              <button className="btn btn-primary">Go Back</button>
-            </Link>
+              <button
+                className="btn btn-success"
+                type="submit"
+                onClick={handleClick}
+              >
+                Ajouter
+              </button>
+              <Link to="/">
+                <button className="btn btn-primary">Go Back</button>
+              </Link>
             </div>
           </form>
         </Row>
@@ -115,4 +153,3 @@ const Addtable = (props) => {
 };
 
 export default Addtable;
-
