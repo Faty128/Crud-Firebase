@@ -8,25 +8,51 @@
   margin-top: 60px;
   margin-left: 23%;
 }
-.button-link{
+.btn1{
+  float: left;
+  width: 120px;
+  background-color: #222222;
+  border:1px solid #008cba;
+  border-radius: 5px;
+  height: 40px;
+  margin: 5px;
+}
+.btn2{
+  float: start;
+  width: 150px;
+  background-color: #222222;
+  border:1px solid #008cba;
+  border-radius: 5px;
+  font-size: 13px;
+  height: 40px;
+  margin: 5px;
+}
+.Link{
+  color: wheat;
   text-decoration: none;
-  color: blue;
-  border-radius: 3px;
-  margin: 10px;
+
+}
+
+.Link:hover{
+  color: wheat;
+  text-decoration: none;
+
 }
 
 .tableau-style{
+  display: block;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
   border-collapse: collapse;
   min-width: 600px;
-  width: auto;
   cursor: pointer;
   margin: 100px auto;
-  border: 1px solid #ddd;
   margin-top: 100px;
 }
 
 th, td {
-  padding:  10px 15px;
+  padding:  10px;
 }
 
 tbody tr, td, th {
@@ -41,6 +67,28 @@ tbody tr, td, th {
 .button-delete{
   background: none;
   border: none;
+}
+.button-edit{
+  background: none;
+  border: none;
+}
+
+.btn-archive
+{
+  display: flex;
+  width: 120px;
+  height: 40px;
+  background-color: #008cba;
+  border:2px solid #008cba;
+  border-radius: 5px;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.div-archive{
+  color: rgb(238, 143, 143);
 }
 
 .showing{
@@ -112,9 +160,19 @@ margin-top: 100px;
 font-weight: 500;
 color: dimgrey;
 }
+.NewTables1 {
+  margin: auto;
+  margin-top: -5px;
+  width: 80%;
+  background: rgba(112, 107, 107, 0.75);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
 
   .NewTables {
     margin: auto;
+    /* margin-top: 5px; */
     width: 80%;
     background: rgba(24, 20, 20, 0.75);
     box-sizing: border-box;
@@ -124,11 +182,12 @@ color: dimgrey;
 
   .login-box {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     width: 400px;
+    height: 93%;
     padding: 40px;
-    transform: translate(-50%, -50%);
+    transform: translate(-40%, -40%);
     background: rgba(24, 20, 20, 0.987);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
@@ -141,10 +200,10 @@ color: dimgrey;
   
   .login-box .user-box input {
     width: 100%;
-    padding: 10px 0;
+    padding: 8px 0;
     font-size: 16px;
     color: #fff;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     border: none;
     border-bottom: 1px solid #fff;
     outline: none;
@@ -180,8 +239,8 @@ color: dimgrey;
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px
+    margin-top: 9px;
+    letter-spacing: 5px
   }
   
   .login-box button:hover {
@@ -228,6 +287,22 @@ color: dimgrey;
   .fa{
     position: relative;
     left: -10%;
+  }
+  form input{
+    position: absolute;
+  margin-left: -45%;
+  margin-top: 10%;
+  }
+}
+@media screen and (max-width: 556px) {
+  .fa{
+    position: relative;
+    left: -10%;
+  }
+  form input{
+    position: absolute;
+  margin-left: -57%;
+  margin-top: 15%;
   }
 }
 

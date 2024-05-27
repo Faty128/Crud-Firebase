@@ -1,23 +1,17 @@
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { db, imageDb } from "./config/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-// import {
-//   getDownloadURL,
-//   ref as storageRef,
-//   uploadBytes,
-// } from "firebase/storage";
 import { v4 } from "uuid";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Addtable = (props) => {
   const [img, setImg] = useState(null);
-  const [setImgUrl] = useState([]);
-  // const [imageUpload, setImageUpload] = useState(null);
 
-  const navigate = useNavigate(); //permette de diriger d'une page a une autre page automatiquement
+  const navigate = useNavigate();
 
   const [newTable, setNewTable] = useState({
     Name: "",
@@ -26,18 +20,6 @@ const Addtable = (props) => {
     Pin: "",
     Country: "",
   });
-
-  const handleClick = () => {
-    if (img !== null) {
-      const imgRef = ref(imageDb, `files/${v4()}`);
-      uploadBytes(imgRef, img).then((value) => {
-        console.log(value);
-        getDownloadURL(value.ref).then((url) => {
-          setImgUrl((data) => [...data, url]);
-        });
-      });
-    }
-  };
 
   const handleChange = (e) => {
     setNewTable({ ...newTable, [e.target.name]: e.target.value });
@@ -48,40 +30,56 @@ const Addtable = (props) => {
 
     const { Name, Adress, City, Pin, Country } = newTable;
 
+    // Vérification des champs vides
+    if (!Name || !Adress || !City || !Pin || !Country) {
+      toast.error("Veuillez remplir tous les champs", {
+        position: "top-center",
+      });
+      return;
+    }
+
     try {
+      let imgUrl = null;
+
+      // Upload image s'il existe et puis get l'URL
+      if (img !== null) {
+        const imgRef = ref(imageDb, `files/${v4()}`);
+        const uploadResult = await uploadBytes(imgRef, img);
+        imgUrl = await getDownloadURL(uploadResult.ref);
+      }
+
+      // ajout du doc dans firebase
       await addDoc(collection(db, "user"), {
         Name,
         Adress,
         City,
         Pin,
         Country,
+        imgUrl,
       });
-      navigate("/");
-      // window.location.href('/'); méme chose que navigate permette de dirigé dans une autre page (et on le déclare pas contraiement que useNavigate)
-      alert("user ajouté");
+
+      toast.success("User ajouté avec succès", {
+        position: "top-center",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
-      console.error("Error adding table:", error);
-      alert("error");
+      console.error("Error lors de l'ajout :", error);
+      toast.error("Erreur lors de l'ajout de l'utilisateur", {
+        position: "top-center",
+      });
     }
   };
 
   return (
     <div className="NewTables">
-      <h1 className="p-2">Ajouter des Etudiands</h1>
+      <h1 className="p-2">Ajouter des Etudiants</h1>
       <Container fluid>
         <Row>
-          <form className="NewTables" onSubmit={handleSubmit}>
+          <form className="NewTables1" onSubmit={handleSubmit}>
             <div className="input">
               <input type="file" onChange={(e) => setImg(e.target.files[0])} />
-              {/* <input
-                label="Image"
-                placeholder="Choose image"
-                accept="image/png,image/jpeg"
-                type="file"
-                onChange={(e) => {
-                  setImageUpload(e.target.files[0]);
-                }}
-              /> */}
               <input
                 type="text"
                 name="Name"
@@ -134,11 +132,7 @@ const Addtable = (props) => {
               <br />
             </div>
             <div className="btn">
-              <button
-                className="btn btn-success"
-                type="submit"
-                onClick={handleClick}
-              >
+              <button className="btn btn-success" type="submit">
                 Ajouter
               </button>
               <Link to="/">
@@ -148,6 +142,18 @@ const Addtable = (props) => {
           </form>
         </Row>
       </Container>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "auto", textAlign: "center" }}
+      />
     </div>
   );
 };
