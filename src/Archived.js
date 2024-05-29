@@ -56,7 +56,7 @@ const ArchivedUsers = () => {
     //   console.log("donnée :", data);
       setUsers(data);
     } catch (error) {
-      console.error("Erreur fetch donnée:", error);
+      // console.error("Erreur fetch donnée:", error);
     }
   };
 
@@ -68,7 +68,7 @@ const ArchivedUsers = () => {
         .filter(user => user.archived);
       setArchivedUsers(data);
     } catch (error) {
-      console.error("Erreur fetch archived users:", error);
+      // console.error("Erreur fetch archived users:", error);
     }
   };
 
@@ -135,7 +135,7 @@ const ArchivedUsers = () => {
                   >
                     <TrashFill size={18} color="red" className="ms-2" />
                   </button>
-                  <Link to="/"
+                  <Link to=""
                     onClick={() => handleUnarchiveUser(user.id)}
                     className="button-unarchive"
                   >

@@ -25,7 +25,7 @@ const UpdateUser = () => {
           console.error("User not found");
         }
       } catch (error) {
-        console.error("Error fetching user:", error);
+        // console.error("Error fetching user:", error);
       }
     };
 
@@ -94,43 +94,48 @@ const UpdateUser = () => {
             <label style={{ marginTop: "-20px" }}>Image :</label>
           </div>
           <div className="user-box">
-            <input
-              type="text"
-              value={user.Name}
-              onChange={(e) => setUser({ ...user, Name: e.target.value })}
-            />
+          <input
+  type="text"
+  value={user.Name}
+  onChange={(e) => setUser({ ...user, Name: e.target.value })}
+/>
+
             <label>Name :</label>
           </div>
           <div className="user-box">
-            <input
-              type="text"
-              value={user.Adress}
-              onChange={(e) => setUser({ ...user, Adress: e.target.value })}
-            />
+          <input
+  type="text"
+  value={user.Adress}
+  onChange={(e) => setUser({ ...user, Adress: e.target.value })}
+/>
+
             <label>Adress:</label>
           </div>
           <div className="user-box">
-            <input
-              type="text"
-              value={user.City}
-              onChange={(e) => setUser({ ...user, City: e.target.value })}
-            />
+          <input
+  type="text"
+  value={user.City}
+  onChange={(e) => setUser({ ...user, City: e.target.value })}
+/>
+
             <label>City:</label>
           </div>
           <div className="user-box">
-            <input
-              type="number"
-              value={user.Pin}
-              onChange={(e) => setUser({ ...user, Pin: e.target.value })}
-            />
+          <input
+  type="text"
+  value={user.Pin}
+  onChange={(e) => setUser({ ...user, Pin: e.target.value })}
+/>
+
             <label>Pin Code:</label>
           </div>
           <div className="user-box">
-            <input
-              type="text"
-              value={user.Country}
-              onChange={(e) => setUser({ ...user, Country: e.target.value })}
-            />
+          <input
+  type="text"
+  value={user.Country}
+  onChange={(e) => setUser({ ...user, Country: e.target.value })}
+/>
+
             <label>Country:</label>
           </div>
           <center>

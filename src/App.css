@@ -277,11 +277,48 @@ color: dimgrey;
     animation: btn-anim1 2s linear infinite;
   }
 
-    .showing .NUM, p{
-    display: flex;
-      margin: 5px;
-      gap: 10px;
+    .showing h6{
+    /* display: flex; */
+      /* margin: 5px; */
+      /* gap: 10px; */
+      margin-left: 1%;
     }
+
+    /* PAGINATION */
+.pagination {
+  display: flex;
+  /* float: right; */
+  /* list-style-type: none; */
+  margin-left: -13%;
+  padding: 0;
+}
+
+.pagination li {
+  margin: 0 5px; /* Espacement entre les éléments de pagination */
+}
+
+.pagination li a {
+  display: block;
+  padding: 5px 5px;
+  border: 1px solid #ddd;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #f9f9f9; /* Background pour les pages non actives */
+  border-radius: 5px;
+}
+
+.pagination li a:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination li.active a {
+  background-color: #007bff; /* Background pour la page active */
+  color: white;
+  border-color: #007bff;
+}
+
+/* FIN PAGINATION */
 
 @media screen and (max-width: 768px) {
   .fa{
